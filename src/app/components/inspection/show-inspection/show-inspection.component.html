@@ -1,0 +1,22 @@
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+            <th>Id</th>
+            <th>Estado</th>
+            <th>Id Estado</th>
+            <th>Comentarios</th>
+            <th>Inspeccion</th>
+            <th>Id inspeccion</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of InspectionList$|async">
+                <td>{{item.id}}</td>
+                <td>{{EstadoMap.get(item.estadoId)}}</td>
+                <td>{{item.estadoId}}</td>
+                <td>{{item.comentarios}}</td>
+                <td>{{InspectionTypeMap.get(item.tipoInspeccionId)}}</td>
+                <td>{{item.tipoInspeccionId}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
