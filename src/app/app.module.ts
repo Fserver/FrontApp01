@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-
-import { BrowserModule } from '@angular/platform-browser';
 
 
 import { AppComponent } from './app.component';
 import { InspectionComponent } from './components/inspection/inspection/inspection.component';
 import { ShowInspectionComponent } from './components/inspection/show-inspection/show-inspection.component';
-import { AddEditComponent } from './components/inspection/add-edit/add-edit.component';
+import { AddEditComponent } from './components/inspection/add-edit-inspeccion/add-edit-inspeccion.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,8 @@ import { AddEditComponent } from './components/inspection/add-edit/add-edit.comp
   imports: [
     BrowserModule,
     FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+
+
 import { EstadoService } from 'src/app/services/estado/estado.service';
-
-
 import { InspectionService } from 'src/app/services/inspection/inspection.service';
 import { TiposinspectionService } from 'src/app/services/tiposinspection/tiposinspection.service';
 
@@ -26,18 +26,66 @@ export class ShowInspectionComponent {
 
 
   constructor(
-    private seriveInspection: InspectionService,
+    private serviceInspection: InspectionService,
     private serviceTypeInspection: TiposinspectionService,
     private serviceEstado: EstadoService
   ) { }
 
   ngOnInit() {
-    this.InspectionList$ = this.seriveInspection.getInspection();
+    this.InspectionList$ = this.serviceInspection.getInspection();
     this.InspectionTypeList$ = this.serviceTypeInspection.getInspectionType();
     this.InspectionEstadoList$ = this.serviceEstado.getEstado();
 
     this.refreshEstadoList();
     this.refreshInspectionTypeList();
+  }
+
+  title: string = "";
+  activateaddeditcomponnetinspection: boolean = false;
+  inspectiona: any;
+
+  modalAdd() {
+    this.inspectiona = {
+      id: 0,
+      estadoId: null,
+      comentarios: null,
+      tipoInspeccionId: null
+    }
+    this.title = 'Add Inspection';
+    this.activateaddeditcomponnetinspection = true;
+
+  }
+
+  delete(item: any) {
+    if (confirm(`Are you sure to delete this record?${item.id}`)) {
+      this.serviceInspection.deleteInspetion(item.id).subscribe(res => {
+        var closeModal = document.getElementById('add-edit-modal-close');
+        if (closeModal) {
+          closeModal.click();
+        }
+        var showDeleteSuccess = document.getElementById('delete-success-alert');
+        if (showDeleteSuccess) {
+          showDeleteSuccess.style.display = 'block';
+        }
+        setTimeout(function () {
+          if (showDeleteSuccess) {
+            showDeleteSuccess.style.display = 'none';
+            location.reload();
+          }
+        }, 4000)
+      })
+    }
+  }
+
+  modalEdit(item: any) {
+    this.serviceInspection = item;
+    this.title = 'Edit Inspection';
+    this.activateaddeditcomponnetinspection = true
+  }
+
+  modalclose(): void {
+    this.activateaddeditcomponnetinspection = false;
+    // this.InspectionList$ = this.serviceInspection.getInspection();
   }
 
   refreshInspectionTypeList() {

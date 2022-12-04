@@ -1,0 +1,55 @@
+<form>
+    <div class="mb-3">
+        <label for="tipo" class="form-label">Tipo Inspection ID</label>
+        <input 
+        type="text" 
+        class="form-control" 
+        name="tipoInspeccionId" 
+        [(ngModel)]="tipoInspeccionId" disabled>
+
+        <label for="inspectionTypeId" class="form-label">Tipo Inspection</label>
+        <select 
+            class="form-control" 
+            name="inspectionTypeId" 
+            id="inspectionTypeId" 
+            [(ngModel)]="tipoInspeccionId"
+            *ngIf="inspeccion.id==0"
+        >
+            <option 
+            *ngFor="let type of InspectionTypeList$|async" 
+            [value]="type.id"
+            >
+                {{type.nombre}}
+            </option>
+        </select>
+    </div>
+    <div class="mb3">
+        <label for="estado" class="form-label">Estado</label>
+        <select 
+            class="form-control" 
+            name="inspectionTypeId" 
+            id="inspectionTypeId" 
+            [(ngModel)]="estadoId"
+            *ngIf="inspeccion.id==0"
+        >
+            <option 
+            *ngFor="let type of InspectionEstadoList$|async" 
+            [value]="type.id"
+            >
+                {{type.opcionEstado}}
+            </option>
+        </select>
+    </div>
+    <div class="mb3">
+        <label for="comentarios" class="form-label">Comentarios</label>
+        <input type="text" class="form-control" [(ngModel)]="comentarios" name="comentarios">
+    </div>
+    <br>
+    <br>
+    <div class="mb3 text-center">
+        <button class="btn btn-primary me-3" style="width:100px" (click)="agregar()"
+            *ngIf="inspeccion.id==0">Add</button>
+        <button class="btn btn-primary  me-3" style="width:100px" (click)="update()">Update</button>
+        <!--*ngIf="inspeccion.id==0"-->
+    </div>
+</form>
