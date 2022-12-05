@@ -14,6 +14,8 @@ import { TiposinspectionService } from 'src/app/services/tiposinspection/tiposin
 })
 export class ShowInspectionComponent {
 
+
+
   InspectionList$!: Observable<any[]>
   InspectionTypeList$!: Observable<any[]>
   InspectionEstadoList$!: Observable<any[]>
@@ -24,7 +26,7 @@ export class ShowInspectionComponent {
   InspectionTypeMap: Map<number, string> = new Map();
   EstadoMap: Map<number, string> = new Map();
 
-
+  
   constructor(
     private serviceInspection: InspectionService,
     private serviceTypeInspection: TiposinspectionService,
@@ -59,6 +61,10 @@ export class ShowInspectionComponent {
   delete(item: any) {
     if (confirm(`Are you sure to delete this record?${item.id}`)) {
       this.serviceInspection.deleteInspetion(item.id).subscribe(res => {
+
+        this.InspectionList$ = this.serviceInspection.getInspection();
+        
+
         var closeModal = document.getElementById('add-edit-modal-close');
         if (closeModal) {
           closeModal.click();
@@ -70,15 +76,20 @@ export class ShowInspectionComponent {
         setTimeout(function () {
           if (showDeleteSuccess) {
             showDeleteSuccess.style.display = 'none';
-            location.reload();
+            //location.reload();
           }
-        }, 4000)
+        }, 2000)
       })
     }
   }
 
+
+  //Revisar esta linea para editar
   modalEdit(item: any) {
-    this.serviceInspection = item;
+    this.inspectiona = item;
+    
+    console.log(this.inspectiona);
+    
     this.title = 'Edit Inspection';
     this.activateaddeditcomponnetinspection = true
   }

@@ -25,18 +25,23 @@ export class AddEditComponent {
   @Input() inspeccion: any;
   id?: number = 0;
   estadoId?: number;
-  comentarios?: string = '';
+  comentarios?: string;
   tipoInspeccionId?: number;
 
+
   ngOnInit() {
-    this.id = this.id;
-    this.estadoId = this.estadoId;
-    this.comentarios = this.comentarios;
-    this.tipoInspeccionId = this.tipoInspeccionId;
+
+    this.id = this.inspeccion.id
+    this.estadoId = this.inspeccion.estadoId
+    this.comentarios = this.inspeccion.comentarios
+    this.tipoInspeccionId = this.inspeccion.tipoInspeccionId
+
     this.InspectionEstadoList$ = this.serviceEstado.getEstado();
+
     this.InspectionList$ = this.serviceInspection.getInspection();
+
     this.InspectionTypeList$ = this.serviceTypeInspection.getInspectionType();
-    // console.log(this.id);
+    
   }
 
 
@@ -46,21 +51,25 @@ export class AddEditComponent {
       comentarios: this.comentarios,
       tipoInspeccionId: this.tipoInspeccionId
     }
-    this.serviceInspection.addInspection(inspection)
-      .subscribe(res => {
-        var closeModal = document.getElementById('add-edit-modal-close');
-        if (closeModal) {
-          closeModal.click();
-        }
-        var showAddSuccess = document.getElementById('add-success-alert');
-        if (showAddSuccess) {
-          showAddSuccess.style.display = 'block';
-        }
-        setTimeout(function () {
-          if (showAddSuccess) {
-            showAddSuccess.style.display = 'none';
-          }
-        }, 4000)
+
+    console.log(inspection);
+    
+
+    this.serviceInspection.addInspection(inspection).subscribe(res => {
+
+        // var closeModal = document.getElementById('add-edit-modal-close');
+        // if (closeModal) {
+        //   closeModal.click();
+        // }
+        // var showAddSuccess = document.getElementById('add-success-alert');
+        // if (showAddSuccess) {
+        //   showAddSuccess.style.display = 'block';
+        // }
+        // setTimeout(function () {
+        //   if (showAddSuccess) {
+        //     showAddSuccess.style.display = 'none';
+        //   }
+        // }, 2000)
       })
   }
 
@@ -71,24 +80,30 @@ export class AddEditComponent {
       comentarios: this.comentarios,
       tipoInspeccionId: this.tipoInspeccionId
     }
-    var a: any = this.id;
-    this.serviceInspection.updateInspection(a, inspection)
-      .subscribe(res => {
-        var closeModal = document.getElementById('add-edit-modal-close');
-        if (closeModal) {
-          closeModal.click();
-        }
-        var showUpdateSuccess = document.getElementById('update-success-alert');
-        if (showUpdateSuccess) {
-          showUpdateSuccess.style.display = 'block';
-        }
-        setTimeout(function () {
-          if (showUpdateSuccess) {
-            showUpdateSuccess.style.display = 'none';
-            location.reload();
-          }
-        }, 4000)
-      })
+
+    // console.log(inspection.id);
+    // console.log(inspection.estadoId);
+    // console.log(inspection.comentarios);
+    // console.log(inspection.tipoInspeccionId);
+    
+    var a: any = inspection.id;
+
+    this.serviceInspection.updateInspection(a, inspection).subscribe(res => {
+        // var closeModal = document.getElementById('add-edit-modal-close');
+        // if (closeModal) {
+        //   closeModal.click();
+        // }
+        // var showUpdateSuccess = document.getElementById('update-success-alert');
+        // if (showUpdateSuccess) {
+        //   showUpdateSuccess.style.display = 'block';
+        // }
+        // setTimeout(function () {
+        //   if (showUpdateSuccess) {
+        //     showUpdateSuccess.style.display = 'none';
+        //     //location.reload();
+        //   }
+        // }, 2000)
+    })
   }
 
 }
